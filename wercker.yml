@@ -1,0 +1,23 @@
+box: shaperid/cypress-python
+
+setup:
+  steps:
+    - script:
+      name: Test env variable in setup pipeline
+      code: |
+        echo "Testing WERCKER_CACHE_DIR location"
+        echo $WERCKER_CACHE_DIR
+        echo "This is a test" > $WERCKER_CACHE_DIR/myfile.txt
+
+tests:
+  steps:
+    - script:
+      name: Test env variable in setup pipeline
+      code: |
+        echo "Testing WERCKER_CACHE_DIR location"
+        echo $WERCKER_CACHE_DIR
+        if [ -f "$WERCKER_CACHE_DIR/myfile.txt" ]; then
+          cat $WERCKER_CACHE_DIR/myfile.txt
+        else
+          echo "File $WERCKER_CACHE_DIR/myfile.txt not found!"
+        fi       
